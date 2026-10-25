@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090909" />
+  <title>FocusFlow Icon Generator</title>
+</head>
+<body>
+  <h2>FocusFlow App Icons</h2>
+  <p>Click each button to save your PNG icon.</p>
+
+  <button type="button" onclick="downloadIcon(192)">
+    Download 192 x 192
+  </button>
+
+  <button type="button" onclick="downloadIcon(512)">
+    Download 512 x 512
+  </button>
+
+  <script>
+    function downloadIcon(size) {
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+
+      const ctx = canvas.getContext("2d");
+      const s = size / 512;
+
+      // Black background
+      ctx.fillStyle = "#090909";
+      ctx.fillRect(0, 0, size, size);
+
+      // White hourglass
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 24 * s;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(156 * s, 130 * s);
+      ctx.lineTo(356 * s, 130 * s);
+      ctx.moveTo(156 * s, 382 * s);
+      ctx.lineTo(356 * s, 382 * s);
+
+      ctx.moveTo(180 * s, 130 * s);
+      ctx.bezierCurveTo(
+        180 * s, 205 * s,
+        256 * s, 220 * s,
+        256 * s, 256 * s
+      );
+      ctx.bezierCurveTo(
+        256 * s, 292 * s,
+        180 * s, 307 * s,
+        180 * s, 382 * s
+      );
+
+      ctx.moveTo(332 * s, 130 * s);
+      ctx.bezierCurveTo(
+        332 * s, 205 * s,
+        256 * s, 220 * s,
+        256 * s, 256 * s
+      );
+      ctx.bezierCurveTo(
+        256 * s, 292 * s,
+        332 * s, 307 * s,
+        332 * s, 382 * s
+      );
+      ctx.stroke();
+
+      // Download PNG
+      const link = document.createElement("a");
+      link.download = `pwa-${size}x${size}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
+</body>
+</html>
